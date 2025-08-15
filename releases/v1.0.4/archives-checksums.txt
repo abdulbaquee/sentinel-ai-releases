@@ -1,0 +1,4 @@
+9a10b4817d0c477a798168ab9315a6743c8a5139ac31b1b335be3bd32767f052  sentinel-v1.0.4-linux-x86_64.tar.gz
+2bb13b60c42ca3a355ce981bd1bceef2fdf6ad1f215cd17bae2413e8a51e1e3a  sentinel-v1.0.4-macos-x86_64.tar.gz
+91d870873bc8362c41e9bbc73e466c0a439d82372d95c4db016024dbbc17f503  sentinel-v1.0.4-universal.zip
+9e9c4df249202fc16c6cca6cb01e5cb269866702a1a9e61ddd253360dc0d9b40  sentinel-v1.0.4-windows-x86_64.zip
