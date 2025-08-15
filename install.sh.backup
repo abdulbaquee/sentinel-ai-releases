@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Sentinel AI Official Release Installer - Fixed Version
-# Downloads PHAR directly for maximum compatibility
+# Sentinel AI Official Release Installer
+# Downloads from public releases repository
 # Auto-detects latest version
 
 set -e
@@ -49,23 +49,35 @@ echo ""
 
 # Detect platform
 case "$(uname -s)" in
-    Linux*)     PLATFORM="linux";;
-    Darwin*)    PLATFORM="macos";;
-    CYGWIN*|MINGW*|MSYS*) PLATFORM="windows";;
-    *)          PLATFORM="linux";;  # Default to linux
+    Linux*)     PLATFORM="linux-x86_64"; BINARY_EXT="";;
+    Darwin*)    PLATFORM="macos-x86_64"; BINARY_EXT="";;
+    CYGWIN*|MINGW*|MSYS*) PLATFORM="windows-x86_64"; BINARY_EXT=".bat";;
+    *)          error "Unsupported platform: $(uname -s)"; exit 1;;
 esac
 
 info "Detected platform: $PLATFORM"
 
-# Installation directory
-if [[ -w "/usr/local/bin" ]] || [[ $EUID -eq 0 ]]; then
-    INSTALL_DIR="/usr/local/bin"
-else
-    INSTALL_DIR="$HOME/.local/bin"
-    mkdir -p "$INSTALL_DIR"
+# Check if running as root (not recommended)
+if [[ $EUID -eq 0 ]]; then
+    warning "Running as root is not recommended"
+    warning "Consider running as a regular user with sudo when needed"
 fi
 
-BINARY_PATH="$INSTALL_DIR/sentinel"
+# Installation directory
+if [[ $PLATFORM == "windows-x86_64" ]]; then
+    # Windows installation path
+    INSTALL_DIR="$USERPROFILE/bin"
+    BINARY_PATH="$INSTALL_DIR/sentinel$BINARY_EXT"
+else
+    # Unix installation path
+    if [[ -w "/usr/local/bin" ]] || [[ $EUID -eq 0 ]]; then
+        INSTALL_DIR="/usr/local/bin"
+    else
+        INSTALL_DIR="$HOME/.local/bin"
+        mkdir -p "$INSTALL_DIR"
+    fi
+    BINARY_PATH="$INSTALL_DIR/sentinel$BINARY_EXT"
+fi
 
 info "Installation directory: $INSTALL_DIR"
 
@@ -89,18 +101,28 @@ if command -v sentinel >/dev/null 2>&1; then
     fi
 fi
 
-# Download PHAR directly (most reliable approach)
+# Create install directory
+if [[ ! -d "$INSTALL_DIR" ]]; then
+    info "Creating installation directory: $INSTALL_DIR"
+    if [[ "$INSTALL_DIR" == "/usr/local/bin" ]]; then
+        sudo mkdir -p "$INSTALL_DIR"
+    else
+        mkdir -p "$INSTALL_DIR"
+    fi
+fi
+
+# Download URLs
+BINARY_URL="https://github.com/${REPO_OWNER}/${RELEASES_REPO}/releases/download/v${VERSION}/sentinel-${PLATFORM}${BINARY_EXT}"
 PHAR_URL="https://github.com/${REPO_OWNER}/${RELEASES_REPO}/releases/download/v${VERSION}/sentinel.phar"
 
-info "Downloading Sentinel AI v$VERSION..."
-info "URL: $PHAR_URL"
+info "Downloading Sentinel AI v$VERSION for $PLATFORM..."
 
 # Download with progress
 TEMP_FILE=$(mktemp)
-if curl -L --fail --progress-bar "$PHAR_URL" -o "$TEMP_FILE" 2>/dev/null; then
+if curl -L --fail --progress-bar "$BINARY_URL" -o "$TEMP_FILE" 2>/dev/null; then
     info "Download completed successfully"
     
-    # Install the PHAR
+    # Install the binary
     if [[ "$INSTALL_DIR" == "/usr/local/bin" ]] && [[ $EUID -ne 0 ]]; then
         info "Installing to system directory (requires sudo)..."
         sudo mv "$TEMP_FILE" "$BINARY_PATH"
@@ -114,10 +136,26 @@ if curl -L --fail --progress-bar "$PHAR_URL" -o "$TEMP_FILE" 2>/dev/null; then
     info "📍 Installed to: $BINARY_PATH"
     
 else
-    rm -f "$TEMP_FILE"
-    error "Failed to download Sentinel AI"
-    error "Please check: https://github.com/${REPO_OWNER}/${RELEASES_REPO}/releases"
-    exit 1
+    warning "Failed to download platform-specific binary. Trying PHAR fallback..."
+    
+    # Fallback to PHAR
+    if curl -L --fail --progress-bar "$PHAR_URL" -o "$TEMP_FILE" 2>/dev/null; then
+        if [[ "$INSTALL_DIR" == "/usr/local/bin" ]] && [[ $EUID -ne 0 ]]; then
+            sudo mv "$TEMP_FILE" "$BINARY_PATH"
+            sudo chmod +x "$BINARY_PATH"
+        else
+            mv "$TEMP_FILE" "$BINARY_PATH"
+            chmod +x "$BINARY_PATH"
+        fi
+        
+        success "Successfully installed Sentinel AI PHAR v$VERSION"
+        info "📍 Installed to: $BINARY_PATH"
+    else
+        rm -f "$TEMP_FILE"
+        error "Failed to download Sentinel AI"
+        error "Please check: https://github.com/${REPO_OWNER}/${RELEASES_REPO}/releases"
+        exit 1
+    fi
 fi
 
 # Verify installation
