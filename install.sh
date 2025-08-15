@@ -119,15 +119,29 @@ info "Downloading Sentinel AI v$VERSION for $PLATFORM..."
 
 # Download with progress
 TEMP_FILE=$(mktemp)
-if curl -L --fail --progress-bar "$BINARY_URL" -o "$TEMP_FILE" 2>/dev/null; then
+TEMP_PHAR=$(mktemp)
+
+# Download platform-specific binary and PHAR
+if curl -L --fail --progress-bar "$BINARY_URL" -o "$TEMP_FILE" 2>/dev/null && \
+   curl -L --fail --progress-bar "$PHAR_URL" -o "$TEMP_PHAR" 2>/dev/null; then
     info "Download completed successfully"
     
-    # Install the binary
+    # Install the binary wrapper
     if [[ "$INSTALL_DIR" == "/usr/local/bin" ]] && [[ $EUID -ne 0 ]]; then
         info "Installing to system directory (requires sudo)..."
         sudo mv "$TEMP_FILE" "$BINARY_PATH"
-        sudo chmod +x "$BINARY_PATH"
+        sudo mv "$TEMP_PHAR" "$INSTALL_DIR/sentinel.phar"
+        sudo chmod +x "$BINARY_PATH" "$INSTALL_DIR/sentinel.phar"
     else
+        mv "$TEMP_FILE" "$BINARY_PATH"
+        mv "$TEMP_PHAR" "$INSTALL_DIR/sentinel.phar"
+        chmod +x "$BINARY_PATH" "$INSTALL_DIR/sentinel.phar"
+    fi
+    
+    success "Successfully installed Sentinel AI v$VERSION"
+    info "📍 Installed to: $BINARY_PATH"
+    
+else
         mv "$TEMP_FILE" "$BINARY_PATH"
         chmod +x "$BINARY_PATH"
     fi
