@@ -1,5 +1,6 @@
 #!/bin/bash
-# Sentinel AI Native-like Wrapper for macOS
+# Sentinel AI macOS Binary
+# This script provides a native binary experience for macOS
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PHAR_FILE="$SCRIPT_DIR/sentinel.phar"
@@ -13,7 +14,8 @@ fi
 # Check if PHP is available
 if ! command -v php >/dev/null 2>&1; then
     echo "Error: PHP is required to run Sentinel AI"
-    echo "Please install PHP 8.2 or higher"
+    echo "Please install PHP 8.2 or higher using Homebrew:"
+    echo "  brew install php"
     exit 1
 fi
 
@@ -21,6 +23,8 @@ fi
 PHP_VERSION=$(php -r "echo PHP_VERSION;" 2>/dev/null)
 if [ $? -ne 0 ] || ! php -r "exit(version_compare(PHP_VERSION, '8.2.0', '<') ? 1 : 0);" 2>/dev/null; then
     echo "Error: PHP 8.2 or higher is required. Current version: $PHP_VERSION"
+    echo "Please update PHP using Homebrew:"
+    echo "  brew upgrade php"
     exit 1
 fi
 

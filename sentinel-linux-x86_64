@@ -1,5 +1,6 @@
 #!/bin/bash
-# Sentinel AI Native-like Wrapper for Linux
+# Sentinel AI Linux Binary
+# This script provides a native binary experience for Linux
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PHAR_FILE="$SCRIPT_DIR/sentinel.phar"
