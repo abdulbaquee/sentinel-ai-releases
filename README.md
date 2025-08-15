@@ -155,7 +155,7 @@ curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/mai
 
 - 🐛 **[Report Issues](https://github.com/abdulbaquee/sentinel-ai/issues)** - Bug reports and feature requests
 - 💬 **[Discussions](https://github.com/abdulbaquee/sentinel-ai/discussions)** - Community support
-- 📧 **Email**: support@sentinel-ai.dev (if applicable)
+- 📧 **Email**: info@webgrapple.com (if applicable)
 - 📖 **[Documentation](https://github.com/abdulbaquee/sentinel-ai/tree/main/docs)** - Complete guides
 
 ## 📄 **License**

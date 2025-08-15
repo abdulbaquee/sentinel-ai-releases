@@ -17,7 +17,7 @@ If you discover a security vulnerability in Sentinel AI, please report it respon
 ### How to Report
 
 1. **DO NOT** create a public GitHub issue for security vulnerabilities
-2. Send an email to: **security@abdul-baquee.dev** (if available)
+2. Send an email to: **info@webgrapple.com** (if available)
 3. Or create a private security advisory on GitHub
 
 ### What to Include

@@ -123,8 +123,8 @@ choco install sentinel-ai
 #### APT Repository (Ubuntu/Debian)
 ```bash
 # Coming soon
-curl -fsSL https://releases.sentinel-ai.dev/gpg | sudo apt-key add -
-echo "deb https://releases.sentinel-ai.dev/apt stable main" | sudo tee /etc/apt/sources.list.d/sentinel-ai.list
+curl -fsSL https://github.com/abdulbaquee/sentinel-ai-releases/gpg | sudo apt-key add -
+echo "deb https://github.com/abdulbaquee/sentinel-ai-releases/apt stable main" | sudo tee /etc/apt/sources.list.d/sentinel-ai.list
 sudo apt update && sudo apt install sentinel-ai
 ```
 
