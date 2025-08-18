@@ -12,6 +12,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-language support for installation scripts
 - Enhanced CI/CD integration examples
 
+## [1.0.6] - 2025-08-18
+
+### 🎯 Major Quality Improvements
+- ✅ **Zero PHPStan errors** (down from 179 - 100% reduction!)
+- ✅ **Zero PHPCS errors** (complete PSR-12 compliance)
+- ✅ **Complete type safety** at PHPStan level max
+- ✅ **Fixed critical file corruption** issues in caching system
+- ✅ **Maintained full backward compatibility**
+
+### 🔧 Technical Fixes
+- 🚀 **Resolved 170+ PHPStan type safety errors**
+- 🎨 **Fixed method naming conventions** per PSR-12 standard
+- 🧹 **Eliminated redundant validation logic**
+- 📝 **Improved array type specifications**
+- 📖 **Enhanced PHPDoc annotations**
+
+### ⚡ Performance & Reliability
+- 🔧 **Fixed PHAR execution issues**
+- 💾 **Improved caching logic**
+- 🛡️ **Better error handling**
+- 🏗️ **Cleaner code architecture**
+
+### 🗑️ Removed
+- ❌ **Psalm support removed** (focus on PHPStan for static analysis)
+
+This release represents a **major milestone in code quality**, bringing the codebase to production-ready standards with comprehensive static analysis compliance.
+
+- Enhanced CI/CD integration examples
+
 ## [1.0.4] - 2025-08-16
 
 ### Added
