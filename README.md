@@ -11,14 +11,16 @@
 ### **Automated Installation (Recommended)**
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/install.sh | bash
+# Latest version (v1.0.6)
+curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/install.sh | bash
 ```
 
 ### **Manual Download**
 
 ```bash
-# Download latest PHAR
-curl -L https://github.com/abdulbaquee/sentinel-ai-releases/releases/latest/download/sentinel.phar -o sentinel
+# Download latest version files
+curl -L https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/sentinel.phar -o sentinel.phar
+curl -L https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/sentinel-linux-x86_64 -o sentinel
 chmod +x sentinel && ./sentinel --version
 ```
 
@@ -32,6 +34,29 @@ Sentinel AI is a **comprehensive PHP code quality analysis tool** that combines 
 - 🚀 **Cross-Platform** - Native binaries for Linux, macOS, and Windows
 - ⚡ **Fast Performance** - Optimized for large codebases with intelligent caching
 
+## 📁 **Repository Structure**
+
+This repository follows a versioned release structure:
+
+```
+sentinel-ai-releases/
+├── releases/
+│   ├── v1.0.4/          # Previous release
+│   └── v1.0.6/          # Latest release (current)
+│       ├── sentinel.phar
+│       ├── sentinel-linux-x86_64
+│       ├── sentinel-macos-x86_64
+│       ├── sentinel-windows-x86_64.bat
+│       ├── install.sh
+│       ├── install.ps1
+│       ├── uninstall.sh
+│       ├── uninstall.ps1
+│       ├── RELEASE_NOTES.md
+│       ├── QUICK_START.md
+│       └── v1.0.6-checksums.txt
+└── README.md            # This file
+```
+
 ## 📦 **Available Downloads**
 
 Each release includes:
@@ -43,7 +68,9 @@ Each release includes:
 | `sentinel-macos-x86_64`       | macOS      | Native macOS binary            |
 | `sentinel-windows-x86_64.bat` | Windows    | Windows batch wrapper          |
 | `install.sh`                  | Unix/Linux | Automated installation script  |
+| `install.ps1`                 | Windows    | PowerShell installation script |
 | `uninstall.sh`                | Unix/Linux | Uninstallation script          |
+| `uninstall.ps1`               | Windows    | PowerShell uninstall script    |
 
 ## 🔧 **Usage Examples**
 
@@ -108,8 +135,8 @@ sentinel --help
 ### **Global Installation**
 
 ```bash
-# Download installer
-curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/install.sh | bash
+# Download latest version installer
+curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/install.sh | bash
 
 # Verify installation
 sentinel --version
@@ -118,8 +145,9 @@ sentinel --version
 ### **Project-Specific Installation**
 
 ```bash
-# Download to project directory
-curl -L https://github.com/abdulbaquee/sentinel-ai-releases/releases/latest/download/sentinel.phar -o sentinel
+# Download latest version to project directory
+curl -L https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/sentinel.phar -o sentinel.phar
+curl -L https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/sentinel-linux-x86_64 -o sentinel
 chmod +x sentinel
 
 # Use in project
@@ -148,7 +176,7 @@ RUN curl -L https://github.com/abdulbaquee/sentinel-ai-releases/releases/latest/
 sentinel --version
 
 # Update to latest version
-curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/install.sh | bash
 ```
 
 ## 📞 **Support & Community**
