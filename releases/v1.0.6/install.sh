@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Sentinel AI v1.0.6 Installation Script
+# Sentinel AI v1.0.6 Installation Script (Fixed Version)
 # This script installs Sentinel AI on Linux and macOS systems
 
 set -e
@@ -44,27 +44,38 @@ fi
 
 echo "✅ PHP version: $PHP_VERSION"
 
-# Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BINARY_PATH="$SCRIPT_DIR/$BINARY"
-PHAR_PATH="$SCRIPT_DIR/sentinel.phar"
+# Create temporary directory for downloads
+TEMP_DIR=$(mktemp -d)
+echo "📁 Using temporary directory: $TEMP_DIR"
 
-# Check if binary exists
-if [ ! -f "$BINARY_PATH" ]; then
-    echo "❌ Binary not found: $BINARY_PATH"
+# Download required files
+echo "📥 Downloading Sentinel AI files..."
+
+# Download binary
+echo "  - Downloading $BINARY..."
+curl -L "https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/$BINARY" -o "$TEMP_DIR/$BINARY"
+
+# Download PHAR
+echo "  - Downloading sentinel.phar..."
+curl -L "https://raw.githubusercontent.com/abdulbaquee/sentinel-ai-releases/main/releases/v1.0.6/sentinel.phar" -o "$TEMP_DIR/sentinel.phar"
+
+# Verify downloads
+if [ ! -f "$TEMP_DIR/$BINARY" ]; then
+    echo "❌ Failed to download binary: $BINARY"
+    rm -rf "$TEMP_DIR"
     exit 1
 fi
 
-# Check if PHAR exists
-if [ ! -f "$PHAR_PATH" ]; then
-    echo "❌ PHAR file not found: $PHAR_PATH"
+if [ ! -f "$TEMP_DIR/sentinel.phar" ]; then
+    echo "❌ Failed to download PHAR file"
+    rm -rf "$TEMP_DIR"
     exit 1
 fi
 
-echo "✅ Found Sentinel AI files"
+echo "✅ All files downloaded successfully"
 
 # Make binary executable
-chmod +x "$BINARY_PATH"
+chmod +x "$TEMP_DIR/$BINARY"
 
 # Install to /usr/local/bin
 INSTALL_PATH="/usr/local/bin/sentinel"
@@ -77,8 +88,12 @@ if [ -f "$INSTALL_PATH" ]; then
 fi
 
 # Copy binary to /usr/local/bin
-sudo cp "$BINARY_PATH" "$INSTALL_PATH"
+sudo cp "$TEMP_DIR/$BINARY" "$INSTALL_PATH"
 sudo chmod +x "$INSTALL_PATH"
+
+# Clean up temporary files
+echo "🧹 Cleaning up temporary files..."
+rm -rf "$TEMP_DIR"
 
 echo "✅ Installation complete!"
 
