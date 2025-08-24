@@ -48,9 +48,18 @@ echo "📦 Removing Sentinel AI binary..."
 if [[ "$INSTALL_PATH" == /usr/local/bin/* ]] || [[ "$INSTALL_PATH" == /usr/bin/* ]]; then
     # System-wide installation requires sudo
     sudo rm -f "$INSTALL_PATH"
+    # Also remove the PHAR file if it exists
+    if [ -f "/usr/local/bin/sentinel.phar" ]; then
+        sudo rm -f "/usr/local/bin/sentinel.phar"
+    fi
 else
     # User installation doesn't need sudo
     rm -f "$INSTALL_PATH"
+    # Also remove the PHAR file if it exists in user directory
+    PHAR_DIR=$(dirname "$INSTALL_PATH")
+    if [ -f "$PHAR_DIR/sentinel.phar" ]; then
+        rm -f "$PHAR_DIR/sentinel.phar"
+    fi
 fi
 
 echo "✅ Uninstallation complete!"

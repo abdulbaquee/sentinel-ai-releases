@@ -91,6 +91,10 @@ fi
 sudo cp "$TEMP_DIR/$BINARY" "$INSTALL_PATH"
 sudo chmod +x "$INSTALL_PATH"
 
+# Copy PHAR file to /usr/local/bin
+sudo cp "$TEMP_DIR/sentinel.phar" "/usr/local/bin/sentinel.phar"
+sudo chmod 644 "/usr/local/bin/sentinel.phar"
+
 # Clean up temporary files
 echo "🧹 Cleaning up temporary files..."
 rm -rf "$TEMP_DIR"
