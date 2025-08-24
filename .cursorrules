@@ -1,0 +1,277 @@
+# 🛡️ Sentinel AI Releases Repository - Cursor Rules
+
+## 📁 **Repository Structure & Organization**
+
+### **File and Folder Structure**
+
+- **ALWAYS** maintain the professional release repository structure:
+  ```
+  sentinel-ai-releases/
+  ├── 📄 README.md                    # Main documentation (root level)
+  ├── 📄 LICENSE                      # License file (root level)
+  ├── 📄 CHANGELOG.md                 # Change history (root level)
+  ├── 📄 SECURITY.md                  # Security policy (root level)
+  ├── 📄 CONTRIBUTING.md              # Contribution guidelines (root level)
+  ├── 📄 INSTALL.md                   # Installation guide (root level)
+  ├── 📄 PLATFORM_COMPATIBILITY.md    # Platform support (root level)
+  ├── 📄 RELEASE_GUIDELINES.md        # Release guidelines (root level)
+  ├── 📄 .cursorrules                 # This file (root level)
+  ├── 📁 releases/                    # ✅ VERSIONED RELEASES ONLY
+  │   ├── 📁 v1.0.4/                 # Previous release
+  │   ├── 📁 v1.0.5/                 # Previous release
+  │   └── 📁 v1.0.6/                 # ✅ Latest release
+  │       ├── 📄 sentinel.phar        # PHAR file
+  │       ├── sentinel-linux-x86_64    # Linux wrapper
+  │       ├── sentinel-macos-x86_64    # macOS wrapper
+  │       ├── sentinel-windows-x86_64.bat # Windows wrapper
+  │       ├── install.sh           # Linux/macOS installer
+  │       ├── 📄 install.ps1          # Windows installer
+  │       ├── 📄 uninstall.sh         # Linux/macOS uninstaller
+  │       ├── 📄 uninstall.ps1        # Windows uninstaller
+  │       ├── RELEASE_NOTES.md     # Release notes
+  │       ├── 📄 QUICK_START.md       # Quick start guide
+  │       └── 📄 v{version}-checksums.txt # File checksums
+  └── 📁 .git/                        # Git repository
+  ```
+
+### **File Naming Conventions**
+
+- **PHAR Files**: `sentinel.phar` (always lowercase)
+- **Platform Wrappers**: `sentinel-{platform}-{arch}` (lowercase with hyphens)
+- **Installation Scripts**: `install.sh`, `install.ps1` (lowercase)
+- **Uninstall Scripts**: `uninstall.sh`, `uninstall.ps1` (lowercase)
+- **Documentation**: `RELEASE_NOTES.md`, `QUICK_START.md` (UPPERCASE)
+- **Checksums**: `v{version}-checksums.txt` (lowercase with version)
+
+## 🚀 **Release Management Rules**
+
+### **Version Directory Structure**
+
+- **ALWAYS** create new releases in `releases/v{version}/` directory
+- **NEVER** put binaries or installers in the root directory
+- **ALWAYS** include all platform-specific files for each release
+- **ALWAYS** create comprehensive documentation for each release
+
+### **Required Files for Each Release**
+
+Each version directory (`releases/v{version}/`) MUST contain:
+
+#### **Core Files:**
+- `sentinel.phar` - Main PHAR executable
+- `sentinel-linux-x86_64` - Linux wrapper script
+- `sentinel-macos-x86_64` - macOS wrapper script
+- `sentinel-windows-x86_64.bat` - Windows wrapper script
+
+#### **Installation Scripts:**
+- `install.sh` - Linux/macOS installation script
+- `install.ps1` - Windows PowerShell installation script
+- `uninstall.sh` - Linux/macOS uninstallation script
+- `uninstall.ps1` - Windows PowerShell uninstallation script
+
+#### **Documentation:**
+- `RELEASE_NOTES.md` - Comprehensive release notes
+- `QUICK_START.md` - Quick start guide for users
+- `v{version}-checksums.txt` - SHA256 checksums for all files
+
+### **Script Requirements**
+
+#### **Platform Wrappers:**
+- **ALWAYS** check for PHP availability and version (8.2+)
+- **ALWAYS** provide helpful error messages
+- **ALWAYS** use proper exit codes
+- **ALWAYS** pass all arguments to the PHAR
+
+#### **Installation Scripts:**
+- **ALWAYS** detect the operating system
+- **ALWAYS** check PHP requirements
+- **ALWAYS** provide clear installation instructions
+- **ALWAYS** test the installation
+- **ALWAYS** make scripts executable (`chmod +x`)
+
+#### **Uninstall Scripts:**
+- **ALWAYS** check if Sentinel AI is installed
+- **ALWAYS** clean up all files and PATH entries
+- **ALWAYS** provide confirmation messages
+
+## 📝 **Documentation Standards**
+
+### **Release Notes (`RELEASE_NOTES.md`)**
+
+- **ALWAYS** include version number in title
+- **ALWAYS** list all new features and improvements
+- **ALWAYS** include installation instructions
+- **ALWAYS** provide usage examples
+- **ALWAYS** list system requirements
+- **ALWAYS** include troubleshooting section
+
+### **Quick Start Guide (`QUICK_START.md`)**
+
+- **ALWAYS** provide step-by-step installation
+- **ALWAYS** include basic usage examples
+- **ALWAYS** show common commands
+- **ALWAYS** include troubleshooting tips
+
+### **Main README Updates**
+
+- **ALWAYS** update installation links to point to latest version
+- **ALWAYS** update version references
+- **ALWAYS** maintain clear structure
+- **ALWAYS** include repository structure explanation
+
+## 🔧 **File Permissions and Executables**
+
+### **Executable Files**
+
+- **ALWAYS** make shell scripts executable: `chmod +x install.sh uninstall.sh`
+- **ALWAYS** make platform wrappers executable: `chmod +x sentinel-linux-x86_64 sentinel-macos-x86_64`
+- **ALWAYS** ensure Windows batch files have proper line endings
+
+### **File Integrity**
+
+- **ALWAYS** generate SHA256 checksums for all files
+- **ALWAYS** include checksums in release directory
+- **ALWAYS** verify file integrity before distribution
+
+## 🚨 **Common Mistakes to Avoid**
+
+### **❌ NEVER DO THIS:**
+
+1. **Put files in root directory:**
+   ```
+   ❌ sentinel.phar (in root)
+   ❌ install.sh (in root)
+   ❌ sentinel-linux-x86_64 (in root)
+   ```
+
+2. **Skip version directory:**
+   ```
+   ❌ releases/sentinel.phar
+   ✅ releases/v1.0.6/sentinel.phar
+   ```
+
+3. **Forget executable permissions:**
+   ```
+   ❌ chmod 644 install.sh
+   ✅ chmod +x install.sh
+   ```
+
+4. **Skip documentation:**
+   ```
+   ❌ No RELEASE_NOTES.md
+   ❌ No QUICK_START.md
+   ✅ Always include documentation
+   ```
+
+### **✅ ALWAYS DO THIS:**
+
+1. **Use versioned directories:**
+   ```
+   ✅ releases/v1.0.6/
+   ✅ releases/v1.0.7/
+   ```
+
+2. **Include all platform files:**
+   ```
+   ✅ sentinel-linux-x86_64
+   ✅ sentinel-macos-x86_64
+   ✅ sentinel-windows-x86_64.bat
+   ```
+
+3. **Create comprehensive documentation:**
+   ```
+   ✅ RELEASE_NOTES.md
+   ✅ QUICK_START.md
+   ✅ v{version}-checksums.txt
+   ```
+
+4. **Update main README:**
+   ```
+   ✅ Update installation links
+   ✅ Update version references
+   ```
+
+## 🎯 **Release Process Checklist**
+
+When creating a new release, **ALWAYS** follow this checklist:
+
+### **Pre-Release:**
+- [ ] Check current version in main repository
+- [ ] Create new version directory: `releases/v{new-version}/`
+- [ ] Copy latest PHAR from main repository
+
+### **Create Files:**
+- [ ] Create platform wrappers (Linux, macOS, Windows)
+- [ ] Create installation scripts (install.sh, install.ps1)
+- [ ] Create uninstallation scripts (uninstall.sh, uninstall.ps1)
+- [ ] Create release notes (RELEASE_NOTES.md)
+- [ ] Create quick start guide (QUICK_START.md)
+
+### **Finalize:**
+- [ ] Generate checksums: `sha256sum * > v{new-version}-checksums.txt`
+- [ ] Make scripts executable: `chmod +x install.sh uninstall.sh sentinel-*`
+- [ ] Update main README.md to point to new version
+- [ ] Commit and push all changes
+
+## 🔄 **Maintenance Rules**
+
+### **Repository Cleanup**
+
+- **ALWAYS** remove redundant files from root directory
+- **ALWAYS** maintain clean version history
+- **ALWAYS** update documentation when structure changes
+- **ALWAYS** verify all links work correctly
+
+### **Version Management**
+
+- **ALWAYS** keep previous versions available
+- **ALWAYS** update main README to point to latest version
+- **ALWAYS** maintain backward compatibility for installation scripts
+- **ALWAYS** provide clear upgrade instructions
+
+## 📚 **Quick Reference**
+
+### **Essential Commands:**
+
+```bash
+# Create new release directory
+mkdir -p releases/v{new-version}
+
+# Copy PHAR from main repository
+cp /path/to/sentinel-ai/sentinel.phar releases/v{new-version}/
+
+# Generate checksums
+cd releases/v{new-version}
+sha256sum * > v{new-version}-checksums.txt
+
+# Make scripts executable
+chmod +x install.sh uninstall.sh sentinel-linux-x86_64 sentinel-macos-x86_64
+
+# Commit changes
+git add .
+git commit -m "feat: add v{new-version} release with all platform binaries"
+git push origin main
+```
+
+### **File Locations:**
+
+- **Source PHAR**: Main repository (`/path/to/sentinel-ai/sentinel.phar`)
+- **Release Files**: `releases/v{version}/`
+- **Documentation**: `releases/v{version}/RELEASE_NOTES.md`
+- **Installation**: `releases/v{version}/install.sh` and `install.ps1`
+
+### **Key Principles:**
+
+1. **Maintain Version Structure**: Always use `releases/v{version}/` directories
+2. **Include All Platforms**: Provide wrappers for Linux, macOS, and Windows
+3. **Create Documentation**: Always include release notes and quick start guides
+4. **Ensure Executability**: Make all scripts executable with proper permissions
+5. **Update References**: Always update main README to point to latest version
+6. **Generate Checksums**: Always provide file integrity verification
+7. **Avoid Redundancy**: Never put files in root directory
+8. **Follow Naming**: Use consistent, lowercase naming with hyphens
+
+---
+
+**Remember**: These rules ensure consistent, professional releases that are easy for users to download, install, and use. Follow them strictly for all future releases.
+
+**For AI Assistants**: This `.cursorrules` file should be your primary reference when working with the Sentinel AI releases repository. Always consult `RELEASE_GUIDELINES.md` for detailed step-by-step instructions.
