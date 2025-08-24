@@ -1,0 +1,28 @@
+#!/bin/bash
+# Sentinel AI Native-like Wrapper for Linux
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PHAR_FILE="$SCRIPT_DIR/sentinel.phar"
+
+# Check if PHAR exists
+if [ ! -f "$PHAR_FILE" ]; then
+    echo "Error: Sentinel AI PHAR not found at $PHAR_FILE"
+    exit 1
+fi
+
+# Check if PHP is available
+if ! command -v php >/dev/null 2>&1; then
+    echo "Error: PHP is required to run Sentinel AI"
+    echo "Please install PHP 8.2 or higher"
+    exit 1
+fi
+
+# Check PHP version
+PHP_VERSION=$(php -r "echo PHP_VERSION;" 2>/dev/null)
+if [ $? -ne 0 ] || ! php -r "exit(version_compare(PHP_VERSION, '8.2.0', '<') ? 1 : 0);" 2>/dev/null; then
+    echo "Error: PHP 8.2 or higher is required. Current version: $PHP_VERSION"
+    exit 1
+fi
+
+# Run the PHAR with all arguments
+exec php "$PHAR_FILE" "$@"
